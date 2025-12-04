@@ -77,5 +77,21 @@ LocalLens is a mobile app that delivers daily location-based photo challenges, e
 
 <br><br>
 
-### [BONUS] Digital Wireframes & Mockups  
+### [BONUS] Digital Wireframes & Mockups
 ### [BONUS] Interactive Prototype
+
+## Sprint 1 – Completed User Stories
+
+- [ ] View the Daily Challenge (title, description, radius)
+- [ ] Use the in-app camera screen to take a photo for the challenge
+- [ ] Submit photo with timestamp + location coordinates
+- [ ] View map screen showing pins for submissions
+- [ ] Tap a pin to open a Submission Preview screen
+- [ ] View Profile screen showing completed challenges & submission history
+
+## Sprint 1 Demo
+
+Add sprint demo media to `docs/media/` and reference them here:
+
+![Sprint 1 Demo – Login Flow](docs/media/sprint1-login.gif)
+![Sprint 1 Demo – Dashboard](docs/media/sprint1-dashboard.gif)
