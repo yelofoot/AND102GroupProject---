@@ -29,8 +29,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = { BottomNavBar(navController = navController) }
-                ) {
-                    NavGraph(navController = navController)
+                ) { padding ->
+                    NavGraph(navController = navController, modifier = Modifier.padding(padding))
                 }
             }
         }

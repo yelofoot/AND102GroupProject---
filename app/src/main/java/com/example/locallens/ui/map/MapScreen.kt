@@ -1,6 +1,7 @@
 package com.example.locallens.ui.map
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,8 +18,14 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun MapScreen(navController: NavController, mapViewModel: MapViewModel = viewModel()) {
     val submissions by mapViewModel.submissions.collectAsState()
+    val defaultLatLng = submissions.firstOrNull()?.let { LatLng(it.latitude, it.longitude) }
+        ?: LatLng(37.7749, -122.4194) // Default to San Francisco
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(40.7128, -74.0060), 10f) // Default to NYC
+        position = CameraPosition.fromLatLngZoom(defaultLatLng, 12f)
+    }
+
+    if (submissions.isEmpty()) {
+        Text(text = "No submissions yet. Capture a photo to see it here.")
     }
 
     GoogleMap(
@@ -28,10 +35,11 @@ fun MapScreen(navController: NavController, mapViewModel: MapViewModel = viewMod
         submissions.forEach { submission ->
             Marker(
                 state = MarkerState(position = LatLng(submission.latitude, submission.longitude)),
-                title = "Submission",
-                snippet = "Click to view",
-                onInfoWindowClick = {
+                title = submission.challengeTitle,
+                snippet = "Tap to preview",
+                onClick = {
                     navController.navigate("submissionPreview/${submission.id}")
+                    true
                 }
             )
         }
