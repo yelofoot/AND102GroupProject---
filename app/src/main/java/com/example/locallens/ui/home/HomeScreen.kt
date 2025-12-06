@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -20,21 +21,40 @@ import androidx.navigation.NavController
 fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = viewModel()) {
     val dailyChallenge by homeViewModel.dailyChallenge.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = dailyChallenge.title, style = MaterialTheme.typography.headlineMedium)
-        Text(text = dailyChallenge.description, modifier = Modifier.padding(vertical = 16.dp))
-        Text(text = "Radius: ${dailyChallenge.radiusMeters} meters")
-        Button(
-            onClick = { navController.navigate("camera") },
-            modifier = Modifier.padding(top = 24.dp)
+    dailyChallenge?.let { challenge ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Text("Complete Challenge")
+            Text(
+                text = challenge.title,
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = challenge.description,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(vertical = 16.dp)
+            )
+            Text(
+                text = "Radius: ${challenge.radiusMeters.toInt()} meters",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Button(
+                onClick = { navController.navigate("camera") },
+                modifier = Modifier.padding(top = 24.dp)
+            ) {
+                Text("Open Camera")
+            }
+            Button(
+                onClick = { navController.navigate("map") },
+                modifier = Modifier.padding(top = 12.dp)
+            ) {
+                Text("View Submissions Map")
+            }
         }
     }
 }

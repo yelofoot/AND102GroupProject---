@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.map
 
 object SubmissionRepository {
 
+    // TODO: Replace with Room or remote datasource when backend is available.
     private val submissions = MutableStateFlow<List<Submission>>(emptyList())
 
     fun addSubmission(submission: Submission) {
